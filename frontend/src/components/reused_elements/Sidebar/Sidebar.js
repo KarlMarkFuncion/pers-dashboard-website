@@ -1,11 +1,11 @@
-
 'use client';
 
+import "./Sidebar.css"
 import { Sidebar } from 'flowbite-react'; 
 
 const SideBar = () => {
   return (
-    <Sidebar aria-label="Sidebar with content separator example" className='border-r-2 h-100'>
+    <Sidebar aria-label="Sidebar with content separator example" className='border-r-2 side-bar'>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item href="#">

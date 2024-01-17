@@ -2,6 +2,7 @@
 'use client';
 
 import { Navbar } from 'flowbite-react';
+import "./Nav.css"
 
 const Nav = () => {
   return (

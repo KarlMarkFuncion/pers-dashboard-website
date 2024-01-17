@@ -1,15 +1,17 @@
-import Nav from "./reused_elements/Nav";
-import SideBar from "./reused_elements/Sidebar";
+import Nav from "./reused_elements/Nav/Nav";
+import SideBar from "./reused_elements/Sidebar/Sidebar";
 
  
 function App() {
   return (
-    <div className="App">
-      <div className="lg  h-full">
+    <div className="App grid h-screen">
+      <div className="lg h-full">
         <Nav />
-        <div className="dark-bg lg flex gap-5 h-100">
+        <div className="dark-bg lg flex gap-5 h-full">
           <SideBar />
-          Hello
+          <div>
+            Hello
+          </div>
         </div>
       </div>
       
