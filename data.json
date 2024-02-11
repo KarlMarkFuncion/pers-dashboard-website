@@ -1,0 +1,154 @@
+{
+    "user_data" : {
+
+        "username" : "John Doe",
+        "user_id" : "507f1f77bcf86cd799439011",
+        "first_name" : "John",
+        "last_name" : "Doe",
+        "email" : "johnDoe@gmail.com",
+        "password" : "JohnDoeTinker",
+        "phone_number" : "09932248866" ,
+        "sex" : "yes",
+        "birthday" : "2002-05-21"
+    },
+    "patient_data" : {  
+        "username" : "Mamimi Doe",
+        "patient_id" : "507f1f77bcf86cd799439032",
+        "first_name" : "Mamimi",
+        "last_name" : "Doe",
+        "email" : "MamimiD@gmail.com",
+        "password" : "MamiMimi22",
+        "emergency_num" : "09932248866" ,
+        "sex" : "sometimes",
+        "birthday" : "1967-01-11",
+        "risks" : [
+            "hypertension",
+            "high cholesterol"  
+        ]
+    },
+
+    "heart_rate" : [
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:00",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 89,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:15",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 88,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:30",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 87,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:45",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 90,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:31:00",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 91,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:15",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 92,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:30",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 87,
+            "status" : "normal"
+        }
+    ],
+    "oxidation" : [
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:00",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "oxidation" : 98,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:15",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "oxidation" : 100,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:30",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "oxidation" : 99,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:45",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "oxidation" : 99,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:31:00",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 96,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:15",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 98,
+            "status" : "normal"
+        },
+        {
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "date" : "2023-12-11",
+            "time" : "13:30:30",
+            "location" : "39.16080259994052, -83.09136734680673",
+            "bpm" : 99,
+            "status" : "normal"
+        }
+    ],
+    "pers_devices" : [
+        {
+            "user_id" : "507f1f77bcf86cd799439011",
+            "patient_id" : "507f1f77bcf86cd799439032",
+            "device_id" : "507f1f77bcf86cd799439284",
+            "date_created" : "2023-11-28"
+        }
+    ]
+}

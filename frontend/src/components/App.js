@@ -1,19 +1,40 @@
+import AlertPage from "./AlertPage/AlertPage";
+import Dashboard from "./Dashboard/Dashboard";
+import Inbox from "./Inbox/Inbox";
+import History from "./History/History";
 import Nav from "./reused_elements/Nav/Nav";
-import SideBar from "./reused_elements/Sidebar/Sidebar";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Signup from "./Signup/Signup";
+import Login from "./Login/Login";
+import AppLayout from "./AppLayout";
+// import LandingPage from "./LandingPage/LandingPage";
 
  
 function App() {
   return (
-    <div className="App grid h-screen">
-      <div className="lg h-full">
+    // fit content height
+    <div className="App flex flex-col pb-5">
+        {/* Add logged in and logged out states */}
         <Nav />
-        <div className="dark-bg lg flex gap-5 h-full">
-          <SideBar />
-          <div>
-            Hello
-          </div>
-        </div>
-      </div>
+        <BrowserRouter>
+          <Routes>
+
+            {/* Add logic where if the website is not logged in, make it a login/signup page. And if it's logged in, make it the dashboard of the first PERS device. */}
+            <Route path="/" element={<Dashboard />} />
+            {/* Make several app layouts to reflect logged in and logged out states. */}
+            <Route path="/user" element={<AppLayout />}>               
+                  <Route path="dashboard" element={<Dashboard />} />
+                  {/* <Route path="/dashboard"> */}
+                      {/* <Route path=":user_id"  element={<Dashboard />} /> */}
+                  {/* </Route> */}
+                  <Route path="alerted_pers" element={<AlertPage />} />
+                  <Route path="inbox" element={<Inbox />} />
+                  <Route path="history" element={<History />} />
+            </Route>      
+            <Route path="Signup" element={<Signup />} />  
+            <Route path="Login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
       
     </div>
   );
