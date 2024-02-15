@@ -1,0 +1,15 @@
+[{
+    "username" : "Mamimi Doe",
+    "patient_id" : "507f1f77bcf86cd799439032",
+    "first_name" : "Mamimi",
+    "last_name" : "Doe",
+    "email" : "MamimiD@gmail.com",
+    "password" : "MamiMimi22",
+    "emergency_num" : "09932248866" ,
+    "sex" : "sometimes",
+    "birthday" : "1967-01-11",
+    "risks" : [
+        "hypertension",
+        "high cholesterol"  
+    ]
+}]

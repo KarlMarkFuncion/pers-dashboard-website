@@ -1,0 +1,11 @@
+[{
+    "username" : "John Doe",
+    "user_id" : "507f1f77bcf86cd799439011",
+    "first_name" : "John",
+    "last_name" : "Doe",
+    "email" : "johnDoe@gmail.com",
+    "password" : "JohnDoeTinker",
+    "phone_number" : "09932248866" ,
+    "sex" : "yes",
+    "birthday" : "2002-05-21"
+}]
