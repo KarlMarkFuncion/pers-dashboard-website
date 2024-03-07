@@ -23,7 +23,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/get_user_login/${data.email}/${data.password}`
+        `${process.env.BACKEND_URL}/get_user_login/${data.email}/${data.password}`
       );
 
       setCurrentUser(response.data);

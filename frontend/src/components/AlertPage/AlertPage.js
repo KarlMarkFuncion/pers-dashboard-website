@@ -13,10 +13,10 @@ const AlertPage = () => {
     const fetchData = async () =>{
       try {
         const responseHr = await axios.get(
-          `http://localhost:4000/getHeartrateById`
+          `${process.env.BACKEND_URL}/getHeartrateById`
         );
         const responseOx = await axios.get(
-          `http://localhost:4000/getOxidationById`
+          `${process.env.BACKEND_URL}/getOxidationById`
         )
     
         setCurrentHeartrate(responseHr.data);

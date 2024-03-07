@@ -53,7 +53,7 @@ const SignupPage = () => {
       };
 
       axios
-        .post(`http://localhost:4000/add_new_user`, data)
+        .post(`${process.env.BACKEND_URL}/add_new_user`, data)
         .then((response) => {
           console.log("Response: ", response);
           navigate("/login");
