@@ -11,7 +11,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const uri = 'mongodb://localhost:27017';
+const uri = process.env.DB_URL;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
  
 const Heartrate = mongoose.model("Heartrate", HeartrateSchema);

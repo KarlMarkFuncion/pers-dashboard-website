@@ -4,12 +4,14 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import  routes  from "./routes/routes";
 
+require('dotenv').config();
+
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT_VALUE;
 
 // mongo connection via mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://127.0.0.1:27017/pinoy_pers", {
+mongoose.connect(, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
