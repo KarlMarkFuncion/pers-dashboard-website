@@ -11,7 +11,7 @@ const PORT = process.env.PORT_VALUE;
 
 // mongo connection via mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect(, {
+mongoose.connect(PORT, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
