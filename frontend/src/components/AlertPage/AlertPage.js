@@ -1,7 +1,34 @@
 import LineGraph from "../Dashboard/LineGraph";
 import LocationMap from "../reused_elements/LocationMap";
+import { Link } from "react-router-dom";
+import useStore from "../../store/useStore";
+import axios from "axios";
+import { useEffect } from "react";
 
 const AlertPage = () => {
+  const { setCurrentHeartrate, setCurrentOxidation, currentOxidation, currentHeartrate,  } = useStore();
+
+  useEffect(() => {
+
+    const fetchData = async () =>{
+      try {
+        const responseHr = await axios.get(
+          `http://localhost:4000/getHeartrateById`
+        );
+        const responseOx = await axios.get(
+          `http://localhost:4000/getOxidationById`
+        )
+    
+        setCurrentHeartrate(responseHr.data);
+        setCurrentOxidation(responseOx.data); 
+      } catch (error) {
+        console.log("Error fetching data: ", error);
+      }
+    }
+    fetchData();
+  }, [])
+  
+
     return <>
         <div className="p-5 mx-auto grid container h-12 gap-2"> 
             <div className="grid grid-cols-2 h-2/12 pb-3 border-b-2 mb-5">
@@ -13,9 +40,9 @@ const AlertPage = () => {
                 </div>
               </div>
               <div className="flex justify-end underline">
-                <a href="/" target="_blank">
-                  edit
-                </a>
+                <Link to="../dashboard" target="_blank">
+                  check alerted page
+                </Link>
               </div>
             </div>
             <div className="flex h-4/12">
@@ -46,9 +73,9 @@ const AlertPage = () => {
 
             <div>
               <h3 className="text-xl font-bold">Recent vitals</h3>
-              <div className="grid grid-cols-2">
-                <LineGraph Title={"Heart rate"} />
-                <LineGraph Title={"Oxidation"} Status={"Normal"} />
+              <div className="grid grid-cols-2"> 
+              <LineGraph Title={"Heart rate"}  DataName={"bpm"} Status={"NORMAL"} Data={currentHeartrate}/>
+              <LineGraph Title={"Blood Oxidation"} Data={currentOxidation}  DataName={"oxidation"}Status={"NORMAL"}/>
               </div>
             </div>
         </div>

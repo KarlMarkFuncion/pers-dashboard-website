@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "./reused_elements/Sidebar/Sidebar";
+// import SideBar from "./reused_elements/Sidebar/Sidebar";
+import Nav from "./reused_elements/Nav/Nav";
 
 const AppLayout = () => {
     return <>
-    <div className="h-12 w-full pb-5">
-        <SideBar />
+    <Nav />
+    <div className="h-12 w-full p-5 flex">
+        {/* <SideBar /> */}
         <Outlet />
     </div>
     </>

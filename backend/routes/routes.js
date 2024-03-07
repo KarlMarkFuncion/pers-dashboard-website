@@ -1,52 +1,40 @@
 import {
-    addNewListing,
-    addNewBooking,
-    getListing,
-    getListingById,
-    addNewUser,
-    // validateEmail,
-    getUserLogin,
-  } from "../controllers/controllers";
+  getHeartrateById,
+  getOxidationById,
+  getPatientById,
+  getUserById,
+  addNewUser,
+  getUserLogin,
+  sensorPayloadProcess
+} from "../controllers/controllers";
   
   const routes = (app) => {
     app
-      .route("/")
-      // GET Req
-      .get(getListing);
-  
+      .route("/getHeartrateById")
+      .get(getHeartrateById);
+   
     app
-      .route("/add_listing")
-      // POST endpoint
-      .post(addNewListing);
-  
-    app.route("/upload").post();
-  
-    // NEEDS DEBUGGING
-    // app.post("/validate_email", validateEmail);
-  
+      .route("/getOxidationById")
+      .get(getOxidationById);
+
     app
-      .route("/add_new_user")
-      // add new user POST endpoint
+      .route("/getUserById/:id")
+      .get(getUserById);
+
+    app
+      .route("/getPatientById/:id")
+      .get(getPatientById) 
+
+    app
+      .route("/add_new_user") 
       .post(addNewUser);
-  
+
     app
       .route("/get_user_login/:email/:password")
-      // get user GET endpoint
       .get(getUserLogin);
-  
-    app
-      .route("/find_listing/:id")
-      // Gets lisitng by id
-      .get(getListingById);
-  
-    app
-      .route("/add_booking")
-      //adds  booking data (with payment method)
-      .post(addNewBooking);
-    app
-      .route("/confirm_booking")
-      //adds  booking data (with payment method)
-      .post();
+
+    app.route("sensor_payload_process")
+      .post(sensorPayloadProcess)
   };
   
   export default routes;

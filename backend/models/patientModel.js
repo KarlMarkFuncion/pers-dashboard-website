@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-export const UserSchema = new Schema({
+export const PatientSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -16,8 +16,6 @@ export const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  
-  //   add encryption at a later date -- as part of the validation system.
   risks: {
     type: Array,
     default: []

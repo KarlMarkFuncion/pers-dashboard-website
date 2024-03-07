@@ -9,8 +9,7 @@ export const OxidationSchema = new Schema({
   },
   oxidation: {
     type: Number
-  },
-  timestamps: true,
+  }, 
   profilePhoto: {
     type: String,
     default: "https://picsum.photos/seed/picsum/100/100",
@@ -23,4 +22,6 @@ export const OxidationSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-});
+}, {
+  timestamps: true // Correct usage
+} );

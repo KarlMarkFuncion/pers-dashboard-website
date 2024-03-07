@@ -11,15 +11,19 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+
 import {
-  PresentationChartBarIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
+  PresentationChartBarIcon, 
+  InboxIcon, 
 } from "@heroicons/react/24/solid";
+
+import { useEffect } from "react";
+import axios from "axios";
+
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import AddDevice from "./AddDevice";
+import AddDevice from "./AddDevice"; 
+import PersLink from "./PersLink";
+import useStore from "../../../store/useStore";
  
 export default function SideBar() {
   const [open, setOpen] = React.useState(0);
@@ -28,6 +32,22 @@ export default function SideBar() {
     setOpen(open === value ? 0 : value);
   };
  
+  const { persDevices, setPersDevices, currentUser } = useStore();
+
+  useEffect(() => {
+    const fetchCurrentListing = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}find_listing/${currentUser.id}`
+        );
+        setPersDevices(response.data);
+      } catch (error) {
+        console.log("Error fetching data: ", error);
+      }
+    };
+    fetchCurrentListing();
+  }, [setPersDevices, currentUser.id]);
+
   return <>
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4  drop-shadow-none shadow-none rounded-none h-full">
       <div className="my-2">
@@ -55,24 +75,9 @@ export default function SideBar() {
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <img src="https://picsum.photos/60/60" className="rounded-full h-4/6" alt="patient_profile_picture" />
-                </ListItemPrefix>
-                KM's Pers
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <img src="https://picsum.photos/60/60" className="rounded-full h-4/6" alt="patient_profile_picture" />
-                </ListItemPrefix>
-                Eeya's Pers
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <img src="https://picsum.photos/60/60" className="rounded-full h-4/6" alt="patient_profile_picture" />
-                </ListItemPrefix>
-                Hendrix' Pers
-              </ListItem>
+              { persDevices.map( device => {
+                return <PersLink name={device.patient_name} pers_id={device.id}  />
+              })}
             </List>
           </AccordionBody>
         </Accordion>
@@ -85,30 +90,6 @@ export default function SideBar() {
           <ListItemSuffix>
             <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <UserCircleIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          About Us
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Contact Us
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Terms and Conditions
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Privacy Policy
         </ListItem>
       </List>
     </Card>
