@@ -10,9 +10,8 @@ const { MongoClient } = require('mongodb');
 const app = express();
 
 app.use(bodyParser.json());
-
-const uri = process.env.DB_URL;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+ 
+const client = new MongoClient( process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
  
 const Heartrate = mongoose.model("Heartrate", HeartrateSchema);
 const Oxidation = mongoose.model("Oxidation", OxidationSchema);

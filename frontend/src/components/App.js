@@ -1,6 +1,5 @@
 import AlertPage from "./AlertPage/AlertPage";
 import Dashboard from "./Dashboard/Dashboard";
-import Inbox from "./Inbox/Inbox";
 import History from "./History/History"; 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from "./Signup/Signup";
