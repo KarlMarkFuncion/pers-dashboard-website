@@ -7,15 +7,12 @@ import  routes  from "./routes/routes";
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT_VALUE;
+const mongoUri = process.env.DB_URL;
 
-// mongo connection via mongoose
-mongoose.Promise = global.Promise;
-mongoose.connect(PORT, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(mongoUri, {
+ useNewUrlParser: true,
+ useUnifiedTopology: true,
 });
-
 // cors setup
 app.use(cors());
 
@@ -42,3 +39,5 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
+
+export default app;
