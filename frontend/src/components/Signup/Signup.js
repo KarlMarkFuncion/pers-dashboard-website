@@ -55,6 +55,7 @@ const SignupPage = () => {
       axios
         .post(`${process.env.BACKEND_URL}/add_new_user`, data)
         .then((response) => {
+          // console.log(process.env.BACKEND_URL)
           console.log("Response: ", response);
           navigate("/login");
         })

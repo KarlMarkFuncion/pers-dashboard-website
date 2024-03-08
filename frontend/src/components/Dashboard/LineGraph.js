@@ -7,7 +7,7 @@ import {
 import Chart from "react-apexcharts";
 import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
-const LineGraph = ({Title, Data, Status, DataName, Icon}) => { 
+const LineGraph = ({Title, Data, Status, DataName}) => { 
   
   // const listValue = Data.map(value => value[DataName])
   const chartConfig = {

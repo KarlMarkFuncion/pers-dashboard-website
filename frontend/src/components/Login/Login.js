@@ -23,6 +23,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.get(
+        // console.log(process.env.BACKEND_URL)
         `${process.env.BACKEND_URL}/get_user_login/${data.email}/${data.password}`
       );
 
@@ -39,7 +40,7 @@ const LoginPage = () => {
       <div>
         <div className="mb-2 block">
           <Label htmlFor="login_email" value="Your email" />
-        </div>
+        </div> 
         <TextInput ref={emailRef} required type="email" />
       </div>
       <div>

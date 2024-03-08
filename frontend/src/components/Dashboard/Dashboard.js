@@ -19,9 +19,14 @@ const Dashboard =  () => {
         const responseOx = await axios.get(
           `${process.env.BACKEND_URL}/getOxidationById`
         )
-    
-        setCurrentHeartrate(responseHr.data);
-        setCurrentOxidation(responseOx.data); 
+          
+        if ( responseHr.data && responseOx.data ) {
+          setCurrentHeartrate(responseHr.data);
+          setCurrentOxidation(responseOx.data); 
+        } else {
+          setCurrentHeartrate([]);
+          setCurrentOxidation([]);
+        }
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
