@@ -26,15 +26,17 @@ import {
       .get(getPatientById) 
 
     app
-      .route("/add_new_user") 
+      .route("/add_new_user")
       .post(addNewUser);
 
     app
       .route("/get_user_login/:email/:password")
       .get(getUserLogin);
 
-    app.route("sensor_payload_process")
-      .post(sensorPayloadProcess)
-  };
+    app
+      .route("/sensor_payload_process")
+      .post(sensorPayloadProcess);
+
+};
   
-  export default routes;
+export default routes;
