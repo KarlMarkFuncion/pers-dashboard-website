@@ -10,19 +10,24 @@ const AddressMap = () => {
  
   const address = "Polytechnic University of the Philippines Sta. Mesa"
 
-  useEffect(() => { 
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
+        );
+        const data = await response.json();
         const location = data.results[0].geometry.location;
         setCenter({ lat: location.lat, lng: location.lng });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [address, apiKey]);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+ }, [isLoaded, address, apiKey]);
 
   if (!isLoaded) return <div>Loading...</div>;
 
