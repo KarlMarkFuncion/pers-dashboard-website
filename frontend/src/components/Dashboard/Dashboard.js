@@ -14,10 +14,10 @@ const Dashboard =  () => {
     const fetchData = async () =>{
       try {
         const responseHr = await axios.get(
-          `${process.env.BACKEND_URL}/getHeartrateById`
+          `${process.env.REACT_APP_BACKEND_URL}/getHeartrateById`
         );
         const responseOx = await axios.get(
-          `${process.env.BACKEND_URL}/getOxidationById`
+          `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
         )
           
         if ( responseHr.data && responseOx.data ) {
