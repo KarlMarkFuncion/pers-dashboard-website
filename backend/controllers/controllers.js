@@ -4,6 +4,9 @@ import { PatientSchema } from "../models/patientModel";
 import { UserSchema } from "../models/userModel";
 import { OxidationSchema } from "../models/oxidationModel";
 
+require('dotenv').config();
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
@@ -11,7 +14,8 @@ const app = express();
 
 app.use(bodyParser.json());
  
-const client = new MongoClient( process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+console.log(process.env.DB_URI );
+const client = new MongoClient(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
  
 const Heartrate = mongoose.model("Heartrate", HeartrateSchema);
 const Oxidation = mongoose.model("Oxidation", OxidationSchema);

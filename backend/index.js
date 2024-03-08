@@ -4,11 +4,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import  routes  from "./routes/routes";
 
+//allows env file to be accessed
 require('dotenv').config();
 
-const app = express();
+console.log(process.env.PORT_VALUE);
+const PORT = process.env.PORT_VALUE || 4000;
 
-mongoose.connect(process.env.DB_URL, {
+const app = express();
+ 
+mongoose.connect(process.env.DB_URI, {
  useNewUrlParser: true,
  useUnifiedTopology: true,
 });
