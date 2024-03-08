@@ -24,7 +24,7 @@ const LoginPage = () => {
     try {
       const response = await axios.get(
         // console.log(process.env.REACT_BACKEND_URL)
-        `${process.env.REACT_BACKEND_URL}/get_user_login/${data.email}/${data.password}`
+        `${process.env.REACT_APP_BACKEND_URL}/get_user_login/${data.email}/${data.password}`
       );
 
       setCurrentUser(response.data);

@@ -5,7 +5,7 @@ import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
 const AddressMap = () => {
   const [center, setCenter] = useState({ lat: 37.774929, lng: -122.419416 }); 
 
-  const apiKey = process.env.REACT_GMAPS_API_KEY;
+  const apiKey = process.env.REACT_APP_GMAPS_API_KEY;
   const { isLoaded } = useLoadScript({googleMapsApiKey: apiKey});
  
   const address = "Polytechnic University of the Philippines Sta. Mesa"

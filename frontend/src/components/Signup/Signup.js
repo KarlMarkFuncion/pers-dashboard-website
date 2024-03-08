@@ -51,9 +51,9 @@ const SignupPage = () => {
         // This should be encrypted later on
         password: passwordRef.current.value,
       };
-      console.log(process.env.REACT_BACKEND_URL, process.env.GMAPS_API_KEY);
+      console.log(process.env.REACT_APP_BACKEND_URL, process.env.REACT_APP_GMAPS_API_KEY);
       axios
-        .post(`${process.env.REACT_BACKEND_URL}/add_new_user`, data)
+        .post(`${process.env.REACT_APP_BACKEND_URL}/add_new_user`, data)
         .then((response) => {
           // console.log(process.env.REACT_BACKEND_URL)
           console.log("Response: ", response);
