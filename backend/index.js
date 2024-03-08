@@ -7,9 +7,8 @@ import  routes  from "./routes/routes";
 require('dotenv').config();
 
 const app = express();
-const mongoUri = process.env.DB_URL;
 
-mongoose.connect(mongoUri, {
+mongoose.connect(process.env.DB_URL, {
  useNewUrlParser: true,
  useUnifiedTopology: true,
 });
