@@ -27,7 +27,7 @@ const Dashboard =  () => {
       }
     }
     fetchData();
-  }, [])
+  }, [setCurrentOxidation, setCurrentHeartrate]);
   
 
   return <>

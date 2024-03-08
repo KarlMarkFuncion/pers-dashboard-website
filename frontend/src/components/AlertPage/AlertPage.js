@@ -26,7 +26,7 @@ const AlertPage = () => {
       }
     }
     fetchData();
-  }, [])
+  }, [setCurrentOxidation, setCurrentHeartrate])
   
 
     return <>

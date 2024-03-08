@@ -22,7 +22,7 @@ const AddressMap = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [address]);
+  }, [address, apiKey]);
 
   if (!isLoaded) return <div>Loading...</div>;
 
