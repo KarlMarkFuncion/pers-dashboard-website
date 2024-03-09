@@ -51,6 +51,8 @@ const SignupPage = () => {
         // This should be encrypted later on
         password: passwordRef.current.value,
       };
+
+      axios.defaults.withCredentials = true;
       console.log(process.env.REACT_APP_BACKEND_URL, process.env.REACT_APP_GMAPS_API_KEY);
       axios
         .post(`${process.env.REACT_APP_BACKEND_URL}/add_new_user`, data)
