@@ -44,3 +44,5 @@ app.use((err, req, res, next) => {
 });
 
 export default app;
+
+// "start": "nodemon ./index.js --exec babel-node -e js"
