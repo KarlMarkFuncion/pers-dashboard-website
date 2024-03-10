@@ -4,6 +4,16 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import  routes  from "./routes/routes";
 
+import {
+  getHeartrateById,
+  getOxidationById,
+  getPatientById,
+  getUserById,
+  addNewUser,
+  getUserLogin,
+  sensorPayloadProcess
+} from "../controllers/controllers";
+
 //allows env file to be accessed
 require('dotenv').config();
 
@@ -42,6 +52,37 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
+
+const routes = (app) => {
+  app
+    .route("/getHeartrateById")
+    .get(getHeartrateById);
+ 
+  app
+    .route("/getOxidationById")
+    .get(getOxidationById);
+
+  app
+    .route("/getUserById/:id")
+    .get(getUserById);
+
+  app
+    .route("/getPatientById/:id")
+    .get(getPatientById) 
+
+  app
+    .route("/add_new_user")
+    .post(addNewUser);
+
+  app
+    .route("/get_user_login/:email/:password")
+    .get(getUserLogin);
+
+  app
+    .route("/sensor_payload_process")
+    .post(sensorPayloadProcess);
+
+};
 
 export default app;
 
