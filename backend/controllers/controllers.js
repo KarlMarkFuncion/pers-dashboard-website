@@ -8,10 +8,9 @@ import { OxidationSchema } from "../models/oxidationModel.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const { MongoClient } = require('mongodb');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
 const app = express();
 
 app.use(bodyParser.json());
