@@ -1,12 +1,12 @@
+// Convert require statements to import statements
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import routes from './routes/routes.js';
 
-// Use require for all imports for consistency
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const routes = require('./routes/routes.js');
-
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
 
 const PORT = process.env.PORT || 4000;
 
@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
  console.log(`Backend server running at PORT ${PORT}`);
 });
+
 
 
 // // import express from "express";
