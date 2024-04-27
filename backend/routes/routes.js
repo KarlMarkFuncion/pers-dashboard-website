@@ -39,5 +39,5 @@ import {
 
 };
   
-
-module.exports = routes;
+export default routes;
+// module.exports = routes;
