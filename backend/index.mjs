@@ -75,3 +75,37 @@ app.use((err, req, res, next) => {
 
 // // Export the app for Vercel
 // module.exports = app;
+
+
+
+// {
+//     "name": "backend",
+//     "version": "1.0.0",
+//     "description": "",
+//     "main": "index.mjs",
+//     "type": "module",
+//     "scripts": {
+//        "test": "echo \"Error: no test specified\" && exit 1",
+//        "start": "node index.mjs"
+//     },
+//     "engines": {
+//        "node": "18.18.0"
+//     },
+//     "author": "KM",
+//     "license": "ISC",
+//     "devDependencies": {},
+//     "dependencies": {
+//        "cors": "^2.8.5",
+//        "dotenv": "^16.4.5",
+//        "mongodb": "^6.4.0",
+//        "node-fetch": "^3.3.2",
+//        "babel-cli": "^6.26.0",
+//        "babel-preset-env": "^1.7.0",
+//        "babel-preset-stage-0": "^6.24.1",
+//        "body-parser": "^1.20.2",
+//        "express": "^4.18.3",
+//        "mongoose": "^7.5.3",
+//        "nodemon": "^3.0.1"
+//     }
+//    }
+   
