@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import { HeartrateSchema } from "../models/heartrateModel";
-import { PatientSchema } from "../models/patientModel";
-import { UserSchema } from "../models/userModel";
-import { OxidationSchema } from "../models/oxidationModel";
+import { HeartrateSchema } from "../models/heartrateModel.js";
+import { PatientSchema } from "../models/patientModel.js";
+import { UserSchema } from "../models/userModel.js";
+import { OxidationSchema } from "../models/oxidationModel.js";
 
 require('dotenv').config();
 

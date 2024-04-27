@@ -6,7 +6,7 @@ import {
   addNewUser,
   getUserLogin,
   sensorPayloadProcess
-} from "../controllers/controllers";
+} from "../controllers/controllers.js";
   
   const routes = (app) => {
     app
