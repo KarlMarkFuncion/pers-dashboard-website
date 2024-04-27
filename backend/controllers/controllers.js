@@ -4,7 +4,9 @@ import { PatientSchema } from "../models/patientModel.js";
 import { UserSchema } from "../models/userModel.js";
 import { OxidationSchema } from "../models/oxidationModel.js";
 
-require('dotenv').config();
+// require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const express = require('express');
