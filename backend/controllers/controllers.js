@@ -134,27 +134,65 @@ export const getUserLogin = (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
     });
 };
-
+// export const sensorPayloadProcess = async (req, res) => {
+//   try {
+//      await client.connect();
+//      if (!req.body.sensorData) {
+//       console.error('No sensor data provided');
+//       res.status(400).send('Bad Request: No sensor data provided');
+//       return;
+//      };
+//      const dataPayload = req.body.sensorData.split(','); // Adjusted to match the key sent from Arduino
+//      const validHeartRate = dataPayload[0];
+//      const validSPO2 = dataPayload[1];
+//      const lat = dataPayload[2];
+//      const lng = dataPayload[3];
+//      const GMD = dataPayload[4];
+ 
+//      const db = client.db('pinoy_pers');
+//      const collection = db.collection('patient_data');
+//      await collection.insertOne({ validHeartRate, validSPO2, lat, lng, GMD });
+ 
+//      res.status(200).send('Data received and stored');
+//      console.log(dataPayload);
+//   } catch (e) {
+//      console.error(e);
+//      res.status(500).send('Error storing data');
+//   } finally {
+//      await client.close();
+//   }
+//  };
 export const sensorPayloadProcess = async (req, res) => {
   try {
+    // Connect to the database (assuming client is defined elsewhere)
     await client.connect();
-    const dataPayload = req.body.dataPayload.split(',');
-    const validHeartRate = dataPayload[0];
-    const validSPO2 = dataPayload[1];
-    const lat = dataPayload[2];
-    const lng = dataPayload[3];
-    const GMD = dataPayload[4];
 
+    // Check if sensorData exists in the request body
+    if (!req.body.heartbeat || !req.body.oxidation || !req.body.latitude || !req.body.longitude || !req.body.temperature) {
+      console.error('Incomplete sensor data provided');
+      return res.status(400).send('Bad Request: Incomplete sensor data provided');
+    }
+
+    // Extract sensor data from the request body
+    const { heartbeat, oxidation, latitude, longitude, temperature } = req.body;
+
+    // Insert the sensor data into the database
     const db = client.db('pinoy_pers');
     const collection = db.collection('patient_data');
-    await collection.insertOne({ validHeartRate, validSPO2, lat, lng, GMD });
+    await collection.insertOne({ heartbeat, oxidation, latitude, longitude, temperature });
 
+    // Send a success response
     res.status(200).send('Data received and stored');
-    console.log(dataPayload);
+
+    // Log the received data
+    console.log('Received sensor data:');
+    console.log({ heartbeat, oxidation, latitude, longitude, temperature });
   } catch (e) {
-    console.error(e);
+    // Handle errors
+    console.error('Error storing data:', e);
     res.status(500).send('Error storing data');
   } finally {
+    // Close the database connection
     await client.close();
   }
 };

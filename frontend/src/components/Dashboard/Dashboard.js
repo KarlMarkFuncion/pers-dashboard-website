@@ -6,8 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Dashboard =  () => {
-
-  const { setCurrentHeartrate, setCurrentOxidation, currentOxidation, currentHeartrate,  } = useStore();
+  const { setCurrentHeartrate, setCurrentOxidation, currentOxidation, currentHeartrate, currentUser } = useStore();
 
   useEffect(() => {
 
@@ -19,7 +18,7 @@ const Dashboard =  () => {
         const responseOx = await axios.get(
           `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
         )
-          
+
         if ( responseHr.data && responseOx.data ) {
           setCurrentHeartrate(responseHr.data);
           setCurrentOxidation(responseOx.data); 
@@ -42,7 +41,7 @@ const Dashboard =  () => {
               <img src="https://picsum.photos/60/60" className="rounded-full h-4/6" alt="patient_profile_picture" />
               <div>
                 <h2 className="text-md">DASHBOARD</h2>
-                <h1 className="text-3xl">KM's Pers</h1>
+                <h1 className="text-3xl">{currentUser.firstName}'s Pers</h1>
               </div>
             </div>
             <div className="flex justify-end underline">

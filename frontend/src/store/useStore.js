@@ -8,11 +8,13 @@ const useStore = create((set) => ({
   currentOxidation: [],
   currentPatient: "",
   currentUser: "",
+  currentSensorData: [],
 
   isLoggedIn: false,
 
   setPersDevices: (persDevices) => {set({ persDevices })},
   
+  setCurrentSensorData: (currentSensorData) => {set({ currentSensorData })},
   setCurrentHeartrate: (currentHeartrate) => {set({ currentHeartrate })},
   setCurrentLocation: (currentLocation) => {set({ currentLocation })},
   setCurrentOxidation: (currentOxidation) => {set({currentOxidation})},

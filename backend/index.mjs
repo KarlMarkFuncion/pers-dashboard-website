@@ -1,35 +1,41 @@
-// Convert require statements to import statements
+// Correctly import and use dotenv
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './routes/routes.js';
 
-import { config } from 'dotenv';
-config();
-
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-
 // Move error handling middleware to the top
 app.use((err, req, res, next) => {
- console.error(err.stack);
- res.status(500).send('Something broke!');
-});
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+   });
+   mongoose.connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+   }).then(() => console.log('Database connected'))
+   .catch(err => console.error('Database connection error', err));
 
-mongoose.connect(process.env.DB_URI, {
- useNewUrlParser: true,
- useUnifiedTopology: true,
-}).then(() => console.log('Database connected'))
-.catch(err => console.error('Database connection error', err));
-
-app.use(cors());
+   const corsOptions = {
+    origin: 'http://localhost:3000', // Adjust this to match your frontend's origin
+    credentials: true,
+   };
+   
+   app.use(cors(corsOptions));
 
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 routes(app);
+
+
+// app.use('/', routes);
 
 app.get("/", (req, res) => {
  res.send(`The app is running at ${PORT}`);
