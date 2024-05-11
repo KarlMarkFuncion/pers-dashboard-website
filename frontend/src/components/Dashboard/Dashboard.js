@@ -6,32 +6,37 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Dashboard =  () => {
-  const { setCurrentHeartrate, setCurrentOxidation, currentOxidation, currentHeartrate, currentUser } = useStore();
+  const {   currentUser, setCurrentSensorData, currentSensorData} = useStore();
 
   useEffect(() => {
 
     const fetchData = async () =>{
       try {
-        const responseHr = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/getHeartrateById`
-        );
-        const responseOx = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
-        )
 
-        if ( responseHr.data && responseOx.data ) {
-          setCurrentHeartrate(responseHr.data);
-          setCurrentOxidation(responseOx.data); 
+        const responseData = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/getRecentData`
+        );
+        // const responseHr = await axios.get(
+        //   `${process.env.REACT_APP_BACKEND_URL}/getHeartrateById`
+        // );
+        // const responseOx = await axios.get(
+        //   `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
+        // )
+        if ( responseData.data) {
+          setCurrentSensorData(responseData.data);
+          // setCurrentHeartrate(responseHr.data);
+          // setCurrentOxidation(responseOx.data); 
         } else {
-          setCurrentHeartrate([]);
-          setCurrentOxidation([]);
+          setCurrentSensorData([]);
+          // setCurrentHeartrate([]);
+          // setCurrentOxidation([]);
         }
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
     }
     fetchData();
-  }, [setCurrentOxidation, setCurrentHeartrate]);
+  }, [setCurrentSensorData]);
   
 
   return <>
@@ -52,12 +57,16 @@ const Dashboard =  () => {
           </div>
           <div className="grid gap-5">
             <div className="grid grid-cols-2 gap-3">
-                <LineGraph Title={"Heart rate"}  DataName={"bpm"} Status={"NORMAL"} Data={currentHeartrate}/>
-                <LineGraph Title={"Blood Oxidation"} Data={currentOxidation}  DataName={"oxidation"} Status={"NORMAL"}/>
+                <LineGraph Title={"Heart rate"}  DataName={"heartbeat"} Status={"NORMAL"} Data={currentSensorData}/>
+                <LineGraph Title={"Blood Oxidation"} Data={currentSensorData}  DataName={"oxidation"} Status={"NORMAL"}/>
             </div>
             <div>
                 {/* Ok, gotta get my API key from an old project first. For now I'll place a line graph here uwu */}
                 <LocationMap />
+            </div>
+
+            <div>
+              {currentSensorData}
             </div>
           </div>
       </div>

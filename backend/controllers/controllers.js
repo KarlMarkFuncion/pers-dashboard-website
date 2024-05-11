@@ -11,6 +11,9 @@ dotenv.config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
+
+import { DataSchema } from "../models/persDataModel.js";
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -38,7 +41,40 @@ export const getHeartrateById = (req, res) => {
     });
 };
 
- 
+// export const getRecentData = async (req, res) => {
+//   try {
+//     // Query the database to find the most recent 40 documents
+//     const recentData = await DataSchema.find().sort({_id: -1}).limit(40);
+
+//     res.status(200).json(recentData);
+//   } catch (error) {
+//     // Handle errors
+//     console.error("Error fetching recent data:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// }; 
+
+
+const getLatestData = async (req, res) => {
+    try {
+        // Fetch the 20 latest items from the DataSchema sorted by descending order of creation date
+        const latestData = await DataModel.find().sort({ createdAt: -1 }).limit(20);
+        
+        // If there is no data found, return a 404 Not Found response
+        if (!latestData) {
+            return res.status(404).json({ message: 'No data found' });
+        }
+
+        // If data is found, return it as a JSON response
+        res.status(200).json(latestData);
+    } catch (error) {
+        // If an error occurs, return a 500 Internal Server Error response
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+module.exports = { getLatestData };
+
 
 export const getOxidationById = (req, res) => { 
     Oxidation.find({})
@@ -134,34 +170,7 @@ export const getUserLogin = (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
     });
 };
-// export const sensorPayloadProcess = async (req, res) => {
-//   try {
-//      await client.connect();
-//      if (!req.body.sensorData) {
-//       console.error('No sensor data provided');
-//       res.status(400).send('Bad Request: No sensor data provided');
-//       return;
-//      };
-//      const dataPayload = req.body.sensorData.split(','); // Adjusted to match the key sent from Arduino
-//      const validHeartRate = dataPayload[0];
-//      const validSPO2 = dataPayload[1];
-//      const lat = dataPayload[2];
-//      const lng = dataPayload[3];
-//      const GMD = dataPayload[4];
- 
-//      const db = client.db('pinoy_pers');
-//      const collection = db.collection('patient_data');
-//      await collection.insertOne({ validHeartRate, validSPO2, lat, lng, GMD });
- 
-//      res.status(200).send('Data received and stored');
-//      console.log(dataPayload);
-//   } catch (e) {
-//      console.error(e);
-//      res.status(500).send('Error storing data');
-//   } finally {
-//      await client.close();
-//   }
-//  };
+
 export const sensorPayloadProcess = async (req, res) => {
   try {
     // Connect to the database (assuming client is defined elsewhere)

@@ -16,7 +16,7 @@ const LineGraph = ({Title, Data, Status, DataName}) => {
     series: [
       {
         name: `${Title}`, 
-        data: Data.map(value => value[DataName]),
+        data: Data.map(value => value["oxidation"]),
       },
     ],
     options: {
