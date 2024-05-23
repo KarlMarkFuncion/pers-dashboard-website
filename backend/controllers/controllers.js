@@ -12,7 +12,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 
-import { DataSchema } from "../models/persDataModel.js";
+import { PatientDataSchema } from "../models/patientData.js";
 
 const app = express();
 
@@ -25,6 +25,14 @@ const Heartrate = mongoose.model("Heartrate", HeartrateSchema);
 const Oxidation = mongoose.model("Oxidation", OxidationSchema);
 const User = mongoose.model("User", UserSchema);
 const Patient = mongoose.model("Patient", PatientSchema);
+const PatientData = mongoose.model("PatientData", PatientDataSchema, "patient_data");
+
+export const emergencyAlert = (req, res) => {
+  const currentTime = new Date().toISOString();
+  const redirectUrl = `${process.env.FRONTEND_URL}/user/alerted_pers?time=${encodeURIComponent(currentTime)}`;
+  
+  res.redirect(redirectUrl);
+}
 
 export const getHeartrateById = (req, res) => { 
   Heartrate.find({ })
@@ -55,25 +63,26 @@ export const getHeartrateById = (req, res) => {
 // }; 
 
 
-const getLatestData = async (req, res) => {
+export const getRecentData = async (req, res) => {
     try {
         // Fetch the 20 latest items from the DataSchema sorted by descending order of creation date
-        const latestData = await DataModel.find().sort({ createdAt: -1 }).limit(20);
-        
+        // const patientData = await PatientData.find().sort({ createdAt: -1 }).limit(20);
+        const patientData = await PatientData.find().sort({ createdAt: -1 }).limit(20);
+
         // If there is no data found, return a 404 Not Found response
-        if (!latestData) {
+        if (!patientData) {
             return res.status(404).json({ message: 'No data found' });
         }
 
         // If data is found, return it as a JSON response
-        res.status(200).json(latestData);
+        res.status(200).json(patientData);
+        // console.log("successful data fetching: ", patientData)
     } catch (error) {
         // If an error occurs, return a 500 Internal Server Error response
         res.status(500).json({ message: 'Server error' });
+        console.log(error)
     }
 };
-
-module.exports = { getLatestData };
 
 
 export const getOxidationById = (req, res) => { 
@@ -173,9 +182,6 @@ export const getUserLogin = (req, res) => {
 
 export const sensorPayloadProcess = async (req, res) => {
   try {
-    // Connect to the database (assuming client is defined elsewhere)
-    await client.connect();
-
     // Check if sensorData exists in the request body
     if (!req.body.heartbeat || !req.body.oxidation || !req.body.latitude || !req.body.longitude || !req.body.temperature) {
       console.error('Incomplete sensor data provided');
@@ -185,17 +191,23 @@ export const sensorPayloadProcess = async (req, res) => {
     // Extract sensor data from the request body
     const { heartbeat, oxidation, latitude, longitude, temperature } = req.body;
 
+    // Generate the current timestamp
+    const createdAt = new Date();
+
+    // Connect to the database
+    await client.connect();
+
     // Insert the sensor data into the database
-    const db = client.db('pinoy_pers');
+    const db = client.db('test');
     const collection = db.collection('patient_data');
-    await collection.insertOne({ heartbeat, oxidation, latitude, longitude, temperature });
+    await collection.insertOne({ heartbeat, oxidation, latitude, longitude, temperature, createdAt });
 
     // Send a success response
     res.status(200).send('Data received and stored');
 
     // Log the received data
     console.log('Received sensor data:');
-    console.log({ heartbeat, oxidation, latitude, longitude, temperature });
+    // console.log({ heartbeat, oxidation, latitude, longitude, temperature, createdAt });
   } catch (e) {
     // Handle errors
     console.error('Error storing data:', e);

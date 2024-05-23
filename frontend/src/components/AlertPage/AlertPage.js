@@ -1,32 +1,53 @@
 import LineGraph from "../Dashboard/LineGraph";
 import LocationMap from "../reused_elements/LocationMap";
 import { Link } from "react-router-dom";
-import useStore from "../../store/useStore";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const AlertPage = () => {
-  const { setCurrentHeartrate, setCurrentOxidation, currentOxidation, currentHeartrate,  } = useStore();
+const AlertPage = () => { 
+
+  const [ currentSensorData, setCurrentSensorData ] = useState([]);
 
   useEffect(() => {
 
     const fetchData = async () =>{
       try {
-        const responseHr = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/getHeartrateById`
+
+        const responseData = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/getRecentData`
         );
-        const responseOx = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
-        )
-    
-        setCurrentHeartrate(responseHr.data);
-        setCurrentOxidation(responseOx.data); 
+        // const responseHr = await axios.get(
+        //   `${process.env.REACT_APP_BACKEND_URL}/getHeartrateById`
+        // );
+        // const responseOx = await axios.get(
+        //   `${process.env.REACT_APP_BACKEND_URL}/getOxidationById`
+        // )
+        if ( responseData.data) {
+          setCurrentSensorData(responseData.data);
+          // setCurrentHeartrate(responseHr.data);
+          // setCurrentOxidation(responseOx.data); 
+          console.log("console log is:")
+          console.log(currentSensorData)
+        } else {
+          setCurrentSensorData([]);
+          // setCurrentHeartrate([]);
+          // setCurrentOxidation([]);
+        }
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
     }
     fetchData();
-  }, [setCurrentOxidation, setCurrentHeartrate])
+
+    
+  // Call fetchData every 1 second
+  const intervalId = setInterval(fetchData, 1000);
+
+  // Cleanup function to clear interval when component unmounts or when dependencies change
+  return () => {
+    clearInterval(intervalId);
+  };
+  }, [setCurrentSensorData, currentSensorData]);
   
 
     return <>
@@ -51,14 +72,14 @@ const AlertPage = () => {
                   <p>Time Alert was sent: </p>
                   <h3 className="pl-3 text-xl font-bold">2:00AM</h3>
                 </li>
-                <li>
+                {/* <li>
                   <p>Hospital Alerted</p>
                   <h3 className="pl-3 text-xl font-bold">Paranaque Doctor's Hospital</h3>  
                 </li>
                 <li>
                   <p>Potential cause of Emergency:</p>
                   <h3 className="pl-3 text-xl font-bold">Drastic and prolonged spike in BPM: Possible Cardiac Arrest</h3>
-                </li>
+                </li> */}
                 <li>
                   <p>Connection status:</p>
                   <h3 className="pl-3 text-xl font-bold">Connected</h3>
@@ -74,8 +95,8 @@ const AlertPage = () => {
             <div>
               <h3 className="text-xl font-bold">Recent vitals</h3>
               <div className="grid grid-cols-2"> 
-              <LineGraph Title={"Heart rate"}  DataName={"bpm"} Status={"NORMAL"} Data={currentHeartrate}/>
-              <LineGraph Title={"Blood Oxidation"} Data={currentOxidation}  DataName={"oxidation"}Status={"NORMAL"}/>
+              <LineGraph Title={"Heart rate"}  DataName={"heartbeat"} Status={"NORMAL"} Data={currentSensorData}/>
+                <LineGraph Title={"Blood Oxidation"} Data={currentSensorData}  DataName={"oxidation"} Status={"NORMAL"}/>
               </div>
             </div>
         </div>

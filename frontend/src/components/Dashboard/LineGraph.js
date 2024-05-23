@@ -7,7 +7,7 @@ import {
 import Chart from "react-apexcharts";
 import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
 
-const LineGraph = ({Title, Data, Status, DataName}) => { 
+const LineGraph = ({Title, Data, DataName}) => { 
   
   // const listValue = Data.map(value => value[DataName])
   const chartConfig = {
@@ -16,7 +16,10 @@ const LineGraph = ({Title, Data, Status, DataName}) => {
     series: [
       {
         name: `${Title}`, 
-        data: Data.map(value => value["oxidation"]),
+        data: Data.map(value => {
+          let dataValue = parseFloat(value[DataName].toString());
+          return dataValue < 0 ? "0" : dataValue.toString();
+      }),
       },
     ],
     options: {
@@ -54,18 +57,13 @@ const LineGraph = ({Title, Data, Status, DataName}) => {
             fontWeight: 400,
           },
         },
-        categories: [
-          "11:00",
-          "11:10",
-          "11:20",
-          "11:30",
-          "11:40",
-          "11:50",
-          "12:00",
-          "12:10",
-          "12:20",
-          "12:30",
-        ],
+        categories: Data.map(value => {
+          const date = new Date(value["createdAt"]);
+          const hours = date.getHours().toString().padStart(2, '0');
+          const minutes = date.getMinutes().toString().padStart(2, '0');
+          const seconds = date.getSeconds().toString().padStart(2, '0');
+          return `${hours}:${minutes}:${seconds}`;
+        }) 
       },
       yaxis: {
         labels: {
@@ -116,15 +114,14 @@ const LineGraph = ({Title, Data, Status, DataName}) => {
               <Typography variant="h6" color="blue-gray">
               {Title} Timeline
               </Typography>
-
-              { Status ?
-              <Typography
+ 
+              {/* <Typography
               variant="small"
               color="gray"h
               className="max-w-sm font-normal"
               >
-              Current status is {Status}
-              </Typography> : <></>}
+              Current status is 
+              </Typography> : <></>  */}
           </div>
           <a href="/" className="w-full underline text-right">history</a>
           

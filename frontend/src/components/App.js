@@ -6,8 +6,38 @@ import Signup from "./Signup/Signup";
 import Login from "./Login/Login";
 import AppLayout from "./AppLayout"; 
 // import LandingPage from "./LandingPage/LandingPage";
+import React, { useEffect } from 'react';
+import socket from '../socket';
 
 function App() {
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to the server');
+    });
+
+    socket.on('alert', (data) => {
+      const { time } = data;
+      console.log('Received alert:', data);  // Log the received alert
+      window.location.href = `/user/alerted_pers?time=${encodeURIComponent(time)}`;
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from the server');
+    });
+
+    socket.on('error', (err) => {
+      console.error('Socket.IO client error:', err);
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('alert');
+      socket.off('disconnect');
+      socket.off('error');
+    };
+  }, []);
+
   // const { isLoggedIn } = useStore();
   return (
     // fit content height 

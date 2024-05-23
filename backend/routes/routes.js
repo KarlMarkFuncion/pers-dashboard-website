@@ -6,7 +6,8 @@ import {
   addNewUser,
   getUserLogin,
   sensorPayloadProcess,
-  getRecentData
+  getRecentData,
+  emergencyAlert
 } from "../controllers/controllers.js";
   
   const routes = (app) => {
@@ -41,6 +42,10 @@ import {
     app
       .route("/getRecentData")
       .get(getRecentData)
+
+    app
+      .route("/emergencyAlert")
+      .get(emergencyAlert);
 
 };
   
