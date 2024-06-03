@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 export default function Nav() {
   const [openNav, setOpenNav] = React.useState(false);
   
-  const { setCurrentUser } = useStore();
+  const { currentUser, setCurrentUser } = useStore();
   const navigate = useNavigate();
   
   const handleLogOut = (e) => {
     e.preventDefault();
     console.log("logout attempt")
-    setCurrentUser({});
+    setCurrentUser("");
     navigate("/")
   };
 
@@ -34,18 +34,16 @@ export default function Nav() {
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
-            as="a"
-            href="/user/dashboard"
             className="mr-4 cursor-pointer py-1.5 font-bold"
           >
             PINOY PERS
           </Typography>
           <div className="flex items-center gap-4"> 
-            {/* <div className="flex items-center gap-x-1"> 
+            {currentUser !== "" ? <div className="flex items-center gap-x-1"> 
             <Button fullWidth variant="gradient" size="sm" className="" onClick={(e) => handleLogOut(e)}>
                 <span>Log out</span>
               </Button>
-            </div> */}
+            </div> : <></>}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -85,13 +83,13 @@ export default function Nav() {
             </IconButton>
           </div>
         </div>
-        {/* <MobileNav open={openNav}> 
+        <MobileNav open={openNav}> 
           <div className="flex items-center gap-x-1"> 
             <Button fullWidth variant="gradient" size="sm" className="" onClick={(e) => handleLogOut(e)}>
               <span>Sign out</span>
             </Button>
           </div>
-        </MobileNav> */}
+        </MobileNav>
       </Navbar>
   );
 }

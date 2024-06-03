@@ -4,6 +4,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRef, useState } from "react";
+import EmailValidator from 'email-validator'; // Import EmailValidator
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -61,29 +62,34 @@ const SignupPage = () => {
         setErrorMessages(prevState => ({...prevState, invalidLastName: true }));
         isValid = false;
       }
-
-    if (isValid) {
-      const data = {
-        firstName: firstNameRef.current.value,
-        lastName: lastNameRef.current.value,
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      };
-
-      axios.defaults.withCredentials = true;
-      axios
+      if (!EmailValidator.validate(email)) {
+        setErrorMessages(prevState => ({...prevState, emailInvalid: true }));
+        isValid = false;
+      }
+  
+      if (isValid) {
+        const data = {
+          firstName: firstNameRef.current.value,
+          lastName: lastNameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        };
+  
+        axios.defaults.withCredentials = true;
+        axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/add_new_user`, data)
       .then((response) => {
-          console.log("Response: ", response);
-          navigate("/login");
-        })
+            console.log("Response: ", response);
+            navigate("/login");
+          })
       .catch((error) => {
-          console.error("Error: ", error);
-        });
+            console.error("Error: ", error);
+          });
+  
+        setErrorMessages({});
+      }
+    };
 
-      setErrorMessages({});
-    }
-  };
   return (
     <form className="mt-12 p-4 flex max-w-md flex-col gap-4 mx-auto">
       <h1 className="text-2xl font-semibold">Sign up for Hospitalitee</h1>
@@ -110,7 +116,7 @@ const SignupPage = () => {
           type="text"
         />
         {errorMessages.firstName && (
-        <div className="text-red-600">[firstName] is required*</div>
+        <div className="text-red-600">firstName is required*</div>
       )}
       {errorMessages.invalidFirstName && (
         <div className="text-red-600">Invalid characters in first name. Only letters allowed.</div>
@@ -128,7 +134,7 @@ const SignupPage = () => {
           type="text"
         />
         {errorMessages.lastName && (
-        <div className="text-red-600">[lastName] is required*</div>
+        <div className="text-red-600">lastName is required*</div>
       )}
       {errorMessages.invalidLastName && (
         <div className="text-red-600">Invalid characters in last name. Only letters allowed.</div>
@@ -146,7 +152,10 @@ const SignupPage = () => {
           placeholder="Email"
         />
         {errorMessages.email && (
-        <div className="text-red-600">[email] is required*</div>
+        <div className="text-red-600">email is required*</div>
+      )}
+      {errorMessages.emailInvalid && (
+        <div className="text-red-600">email is invalid*</div>
       )}
       </div>
       <div>
@@ -161,7 +170,7 @@ const SignupPage = () => {
           type="password"
         />
         {errorMessages.password && (
-        <div className="text-red-600">[password] is required*</div>
+        <div className="text-red-600">password is required*</div>
       )}
       </div>
       {/* Success message */}
@@ -188,7 +197,7 @@ const SignupPage = () => {
           type="password"
         />
         {errorMessages.confirmPassword && (
-        <div className="text-red-600">[confirmPassword] is required*</div>
+        <div className="text-red-600">confirmPassword is required*</div>
       )}
       </div>
       

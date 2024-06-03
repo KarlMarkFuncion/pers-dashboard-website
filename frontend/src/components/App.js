@@ -53,10 +53,10 @@ function App() {
               
               {/* { isLoggedIn ?  <Route path="/user/dashboard" element={<Dashboard />} /> : <Route path="/" element={<Login />} /> } */}
 
-              <Route path="/" element={<Dashboard />} /> 
+              <Route path="/" element={<Login />} /> 
               {/* Make several app layouts to reflect logged in and logged out states. */}
               {/* <Route path="/user" element={<AppLayout />}>                */}
-              {/* <Route path="dashboard" element={<Dashboard />} /> */}
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="alerted_pers" element={<AlertPage />} />
               <Route path="history" element={<History />} />
               {/* </Route>       */}
