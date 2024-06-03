@@ -9,6 +9,7 @@ import Login from "./Login/Login";
 import React, { useEffect } from 'react';
 import socket from '../socket';
 import Nav from "./reused_elements/Nav/Nav";
+import ForgotPasswordPage from "./Login/ForgotPassword";
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
               {/* </Route>       */}
               <Route path="signup" element={<Signup />} />  
               <Route path="login" element={<Login />} />
+              <Route path="forgot_password" element={<ForgotPasswordPage/>} />
             </Routes>
           </BrowserRouter>
       </div> 

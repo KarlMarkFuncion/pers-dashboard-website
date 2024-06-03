@@ -77,6 +77,9 @@ const LoginPage = () => {
       <Link className="text-sm to-blue-800 underline" to="/signup">
         Don't have an account? Sign up!
       </Link>
+      <Link className="text-sm to-blue-800 underline" to="/forgot_password">
+        Forgot password?
+      </Link>
       <Button onClick={(e) => handleSubmit(e)} type="submit">
         Submit
       </Button>
