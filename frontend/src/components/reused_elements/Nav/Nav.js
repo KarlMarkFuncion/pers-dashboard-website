@@ -41,11 +41,11 @@ export default function Nav() {
             PINOY PERS
           </Typography>
           <div className="flex items-center gap-4"> 
-            <div className="flex items-center gap-x-1"> 
+            {/* <div className="flex items-center gap-x-1"> 
             <Button fullWidth variant="gradient" size="sm" className="" onClick={(e) => handleLogOut(e)}>
                 <span>Log out</span>
               </Button>
-            </div>
+            </div> */}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -85,13 +85,13 @@ export default function Nav() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}> 
+        {/* <MobileNav open={openNav}> 
           <div className="flex items-center gap-x-1"> 
             <Button fullWidth variant="gradient" size="sm" className="" onClick={(e) => handleLogOut(e)}>
               <span>Sign out</span>
             </Button>
           </div>
-        </MobileNav>
+        </MobileNav> */}
       </Navbar>
   );
 }

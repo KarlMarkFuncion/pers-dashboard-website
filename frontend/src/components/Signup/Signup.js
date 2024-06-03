@@ -3,13 +3,11 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import useStore from "../../Store/useStore";
 import { useRef, useState } from "react";
 
 const SignupPage = () => {
   const navigate = useNavigate();
 
-  // const { setSuccessMessage } = useStore();
   const [errorMessages, setErrorMessages] = useState({});
 
   const emailRef = useRef(null);
@@ -29,48 +27,65 @@ const SignupPage = () => {
     const firstName = firstNameRef.current.value.trim();
     const lastName = lastNameRef.current.value.trim();
 
-    console.log("NEW SIGNUP ATTEMPT");
-
-    if (!email || !password || !confirmPassword || !firstName || !lastName) {
-      setErrorMessages({ ...errorMessages, fieldIsEmpty: true });
+    if (!email) {
+      setErrorMessages(prevState => ({...prevState, email: true }));
       isValid = false;
     }
-    if (password !== confirmPassword) {
-      setErrorMessages({ ...errorMessages, passwordsDontMatch: true });
+    if (!password) {
+      setErrorMessages(prevState => ({...prevState, password: true }));
+      isValid = false;
+    }
+    if (!confirmPassword) {
+      setErrorMessages(prevState => ({...prevState, confirmPassword: true }));
+      isValid = false;
+    }
+    if (!firstName) {
+      setErrorMessages(prevState => ({...prevState, firstName: true }));
+      isValid = false;
+    }
+    if (!lastName) {
+      setErrorMessages(prevState => ({...prevState, lastName: true }));
+      isValid = false;
+    }
+    if (password!== confirmPassword) {
+      setErrorMessages(prevState => ({...prevState, passwordsDontMatch: true }));
       isValid = false;
     }
 
-    // ADD DUPLICATE EMAIL VALIDATION
+      // Filter for numeric input in names
+      if (/[\d]/.test(firstName)) {
+        setErrorMessages(prevState => ({...prevState, invalidFirstName: true }));
+        isValid = false;
+      }
+      if (/[\d]/.test(lastName)) {
+        setErrorMessages(prevState => ({...prevState, invalidLastName: true }));
+        isValid = false;
+      }
 
-    if (isValid === true) {
+    if (isValid) {
       const data = {
         firstName: firstNameRef.current.value,
         lastName: lastNameRef.current.value,
         email: emailRef.current.value,
-
-        // This should be encrypted later on
         password: passwordRef.current.value,
       };
 
       axios.defaults.withCredentials = true;
-      console.log(process.env.REACT_APP_BACKEND_URL, process.env.REACT_APP_GMAPS_API_KEY);
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/add_new_user`, data)
-        .then((response) => {
-          // console.log(process.env.REACT_BACKEND_URL)
+      .post(`${process.env.REACT_APP_BACKEND_URL}/add_new_user`, data)
+      .then((response) => {
           console.log("Response: ", response);
           navigate("/login");
         })
-        .catch((error) => {
+      .catch((error) => {
           console.error("Error: ", error);
         });
 
       setErrorMessages({});
     }
   };
-
   return (
-    <form className="mt-28 p-4 flex max-w-md flex-col gap-4 mx-auto">
+    <form className="mt-12 p-4 flex max-w-md flex-col gap-4 mx-auto">
       <h1 className="text-2xl font-semibold">Sign up for Hospitalitee</h1>
       {errorMessages.fieldIsEmpty ? (
         <div
@@ -94,6 +109,12 @@ const SignupPage = () => {
           shadow
           type="text"
         />
+        {errorMessages.firstName && (
+        <div className="text-red-600">[firstName] is required*</div>
+      )}
+      {errorMessages.invalidFirstName && (
+        <div className="text-red-600">Invalid characters in first name. Only letters allowed.</div>
+      )}
       </div>
       <div>
         <div className="mb-2 block">
@@ -106,6 +127,12 @@ const SignupPage = () => {
           shadow
           type="text"
         />
+        {errorMessages.lastName && (
+        <div className="text-red-600">[lastName] is required*</div>
+      )}
+      {errorMessages.invalidLastName && (
+        <div className="text-red-600">Invalid characters in last name. Only letters allowed.</div>
+      )}
       </div>
       <div>
         <div className="mb-2 block">
@@ -118,6 +145,9 @@ const SignupPage = () => {
           type="email"
           placeholder="Email"
         />
+        {errorMessages.email && (
+        <div className="text-red-600">[email] is required*</div>
+      )}
       </div>
       <div>
         <div className="mb-2 block">
@@ -130,6 +160,9 @@ const SignupPage = () => {
           placeholder="Password"
           type="password"
         />
+        {errorMessages.password && (
+        <div className="text-red-600">[password] is required*</div>
+      )}
       </div>
       {/* Success message */}
       {errorMessages.passwordsDontMatch ? (
@@ -154,7 +187,11 @@ const SignupPage = () => {
           placeholder="Confirm Password"
           type="password"
         />
+        {errorMessages.confirmPassword && (
+        <div className="text-red-600">[confirmPassword] is required*</div>
+      )}
       </div>
+      
       <Link className="text-sm to-blue-800 underline" to="/login">
         Already have an account? Log in
       </Link>

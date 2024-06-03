@@ -29,7 +29,7 @@ const PatientData = mongoose.model("PatientData", PatientDataSchema, "patient_da
 
 export const emergencyAlert = (req, res) => {
   const currentTime = new Date().toISOString();
-  const redirectUrl = `${process.env.FRONTEND_URL}/user/alerted_pers?time=${encodeURIComponent(currentTime)}`;
+  const redirectUrl = `${process.env.FRONTEND_URL}/alerted_pers?time=${encodeURIComponent(currentTime)}`;
   
   res.redirect(redirectUrl);
 }
@@ -207,7 +207,7 @@ export const sensorPayloadProcess = async (req, res) => {
 
     // Log the received data
     console.log('Received sensor data:');
-    // console.log({ heartbeat, oxidation, latitude, longitude, temperature, createdAt });
+    console.log({ heartbeat, oxidation, latitude, longitude, temperature, createdAt });
   } catch (e) {
     // Handle errors
     console.error('Error storing data:', e);

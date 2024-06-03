@@ -1,12 +1,12 @@
 import LineGraph from "../Dashboard/LineGraph";
 import LocationMap from "../reused_elements/LocationMap";
 import { Link } from "react-router-dom";
-import useStore from "../../store/useStore";
+// import useStore from "../../store/useStore";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Dashboard =  () => {
-  const {   currentUser } = useStore();
+  // const {   currentUser } = useStore();
 
   const [ currentSensorData, setCurrentSensorData ] = useState([]);
 
@@ -56,7 +56,7 @@ const Dashboard =  () => {
               <img src="https://picsum.photos/60/60" className="rounded-full h-4/6" alt="patient_profile_picture" />
               <div>
                 <h2 className="text-md">DASHBOARD</h2>
-                <h1 className="text-3xl">{currentUser.firstName}'s Pers</h1>
+                <h1 className="text-3xl">Group 5 's Pers</h1>
               </div>
             </div>
             <div className="flex justify-end underline">

@@ -3,13 +3,39 @@ import LocationMap from "../reused_elements/LocationMap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom'; // if you are using react-router
 
 const AlertPage = () => { 
 
-  const [ currentSensorData, setCurrentSensorData ] = useState([]);
+  const [ currentSensorData, setCurrentSensorData ] = useState([]); 
+  const [formattedTime, setFormattedTime] = useState('');
+  const location = useLocation(); // to get the current location object
 
-  useEffect(() => {
+  const formatDate = (date) => {
+    const pad = (num) => (num < 10 ? '0' + num : num);
+    let hours = date.getHours();
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // Months are zero-indexed
+    const year = date.getFullYear().toString().slice(-2); // Get last two digits of year
 
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = pad(hours);
+
+    return `${hours}:${minutes}:${seconds} ${ampm} ${day}:${month}:${year}`;
+  };
+
+  useEffect(() => { 
+    const queryParams = new URLSearchParams(location.search);
+    const timeParam = queryParams.get('time');
+    if (timeParam) {
+      const date = new Date(decodeURIComponent(timeParam));
+      const formattedDate = formatDate(date);
+      setFormattedTime(formattedDate);
+    }
     const fetchData = async () =>{
       try {
 
@@ -47,7 +73,7 @@ const AlertPage = () => {
   return () => {
     clearInterval(intervalId);
   };
-  }, [setCurrentSensorData, currentSensorData]);
+  }, [setCurrentSensorData, currentSensorData, location.search]);
   
 
     return <>
@@ -61,8 +87,8 @@ const AlertPage = () => {
                 </div>
               </div>
               <div className="flex justify-end underline">
-                <Link to="../dashboard" target="_blank">
-                  check alerted page
+                <Link to="/" target="_blank">
+                  return to dashboard
                 </Link>
               </div>
             </div>
@@ -70,7 +96,7 @@ const AlertPage = () => {
               <ul className="w-4/12 px-2 flex-col flex gap-4"> 
                 <li>
                   <p>Time Alert was sent: </p>
-                  <h3 className="pl-3 text-xl font-bold">2:00AM</h3>
+                  <h3 className="pl-3 text-xl font-bold">{formattedTime}</h3>
                 </li>
                 {/* <li>
                   <p>Hospital Alerted</p>
