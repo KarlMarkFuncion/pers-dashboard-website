@@ -17,9 +17,13 @@ const LineGraph = ({Title, Data, DataName}) => {
       {
         name: `${Title}`, 
         data: Data.map(value => {
+          // Check if the data exists and is valid
+          if (!value[DataName] || isNaN(value[DataName])) {
+            return 0; // Return 0 if the data is missing or invalid
+          }
           let dataValue = parseFloat(value[DataName].toString());
-          return dataValue < 0 ? "0" : dataValue.toString();
-      }),
+          return dataValue < 0 ? 0 : dataValue; // Replace negative values with 0
+        }),
       },
     ],
     options: {

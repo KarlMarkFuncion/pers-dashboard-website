@@ -67,8 +67,8 @@ const Dashboard =  () => {
           </div>
           <div className="grid gap-5">
             <div className="grid grid-cols-2 gap-3">
-                <LineGraph Title={"Heart rate"}  DataName={"heartbeat"} Data={currentSensorData}/>
-                <LineGraph Title={"Blood Oxidation"} Data={currentSensorData}  DataName={"oxidation"} Status={"NORMAL"}/>
+                <LineGraph Title={"Heart rate"}  DataName="heartbeat" Data={currentSensorData}/>
+                <LineGraph Title={"Blood Oxidation"} Data={currentSensorData}  DataName="oxidation" Status={"NORMAL"}/>
             </div>
             <div>
                 {/* Ok, gotta get my API key from an old project first. For now I'll place a line graph here uwu */}
